@@ -154,7 +154,6 @@ export default {
       // 每次触发 pullingUp 钩子获取数据后，主动调用 finishPullUp()
       const loadMore = debounce(this.$refs.scroll.finishPullUp, 100)
       loadMore()
-      console.log(response.data)
     }
   }
 }

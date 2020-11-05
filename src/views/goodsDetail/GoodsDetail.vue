@@ -1,5 +1,5 @@
 <template>
-  <div class="detail">
+  <div id="detail">
     <nav-bar class="detail-navbar">
       <template #left>
         <div>1111111</div>

@@ -36,14 +36,14 @@
 </template>
 
 <script>
-import NavBar from 'components/common/navbar/NavBar'
-import Scroll from 'components/common/scroll/Scroll'
-import TabControl from 'components/content/tabControl/TabControl'
-import GoodsList from 'components/content/goods/GoodsList'
-import BackTop from 'components/content/backTop/BackTop'
-import HomeSwiper from './childCpns/HomeSwiper'
-import RecommendView from './childCpns/RecommendView'
-import FeatureView from './childCpns/FeatureView'
+import NavBar from 'components/common/navbar/NavBar.vue'
+import Scroll from 'components/common/scroll/Scroll.vue'
+import TabControl from 'components/content/tabControl/TabControl.vue'
+import GoodsList from 'components/content/goods/GoodsList.vue'
+import BackTop from 'components/content/backTop/BackTop.vue'
+import HomeSwiper from './childCpns/HomeSwiper.vue'
+import RecommendView from './childCpns/RecommendView.vue'
+import FeatureView from './childCpns/FeatureView.vue'
 
 import {
   getHomeMultidata,
@@ -154,7 +154,6 @@ export default {
       // 每次触发 pullingUp 钩子获取数据后，主动调用 finishPullUp()
       const loadMore = debounce(this.$refs.scroll.finishPullUp, 100)
       loadMore()
-      console.log(response.data)
     }
   }
 }

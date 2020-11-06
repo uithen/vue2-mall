@@ -1,12 +1,12 @@
 import {request} from './request.js'
 
-// banner & recommends 数据
+// home页: banner & recommends 数据
 export function getHomeMultidata() {
   return request({
     url: '/home/multidata'
   })
 }
-// 首页商品列表数据
+// home页: 商品列表数据(goodsItem)
 export function getHomeGoods(type, page) {
   return request({
     url: '/home/data',

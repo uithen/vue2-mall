@@ -50,6 +50,7 @@
           this.scroll.on('pullingUp', () => {
           this.$emit('pullingUp')
           // this.scroll.finishPullUp()
+          // this.scroll.refresh()
           })
         }
       },
@@ -58,6 +59,7 @@
       },
       refresh() {
         this.scroll && this.scroll.refresh()
+        // console.log(11)
       },
       finishPullUp() {
         this.scroll && this.scroll.finishPullUp()

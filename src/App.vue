@@ -3,7 +3,8 @@
     <keep-alive exclude="Detail">
       <router-view/>
     </keep-alive>
-    <main-tab-bar></main-tab-bar>
+    <!-- <main-tab-bar v-if="!/^\/detail/.test($route.path)"></main-tab-bar> -->
+    <main-tab-bar v-if="!$route.path.includes('/detail')"></main-tab-bar>
   </div>
 </template>
 

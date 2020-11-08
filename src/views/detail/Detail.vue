@@ -6,7 +6,9 @@
       <detail-base-info :goodsInfo="goodsInfo"/>
       <detail-shop-info :shopInfo="shopInfo"/>
       <detail-goods-info :detailInfo="detailInfo" @imgLoad="imgLoad"/>
-      <detail-param-info :paramsInfo="paramsInfo"/>
+      <!-- <detail-param-info :paramsInfo="paramsInfo"/> -->
+      <detail-rate :detail-rate="detailRate"/>
+      <goods-list :goods="detailrecommend"/>
     </scroll>
   </div>
 </template>
@@ -15,26 +17,30 @@
 import DetailNavBar from './childCpns/DetailNavBar.vue'
 
 import Scroll from 'components/common/scroll/Scroll.vue'
+import GoodsList from 'components/content/goods/GoodsList.vue'
 
 import DetailSwiper from './childCpns/DetailSwiper.vue'
 import DetailBaseInfo from './childCpns/DetailBaseInfo.vue'
 import DetailShopInfo from './childCpns/DetailShopInfo.vue'
 import DetailGoodsInfo from './childCpns/DetailGoodsInfo.vue'
 import DetailParamInfo from './childCpns/DetailParamInfo.vue'
+import DetailRate from './childCpns/DetailRate.vue'
 
-import { getDetail, GoodsInfo, ShopInfo, ParamsInfo } from 'network/detail.js'
+import { getDetail, GoodsInfo, ShopInfo, ParamsInfo, getRecommend } from 'network/detail.js'
 export default {
   name: 'Detail',
   components: {
     DetailNavBar,
 
     Scroll,
+    GoodsList,
 
     DetailSwiper,
     DetailBaseInfo,
     DetailShopInfo,
     DetailGoodsInfo,
     DetailParamInfo,
+    DetailRate
 
   },
   data() {
@@ -44,29 +50,39 @@ export default {
       goodsInfo: {},
       shopInfo: {},
       detailInfo: {},
-      paramsInfo: {}
+      paramsInfo: {},
+      detailRate: {},
+      detailrecommend: {}
     }
   },
   methods: {
     async _getDetail() {
       const response = await getDetail(this.iid)
       const data = response.result
-      // 轮播图数据
+      // 取出轮播图
       this.topImages = data.itemInfo.topImages
       
-      // 商品基本信息数据
+      // 取出商品基本信息
       this.goodsInfo = new GoodsInfo(data.itemInfo, data.columns, data.shopInfo.services)
       
-      // 商家店铺数据
+      // 取出商家店铺
       this.shopInfo = new ShopInfo(data.shopInfo)
 
-      // 商品详情数据
+      // 取出商品详情
       this.detailInfo = data.detailInfo
 
-      // 商品参数数据
+      // 取出商品参数
       this.paramsInfo = new ParamsInfo(data.itemParams.info, data.itemParams.rule)
+
+      // 取出商品评价
+      this.detailRate = data.rate.list ? data.rate.list[0] : {}
+    },
+    async _getRecommend() {
+      const response = await getRecommend()
+      this.detailrecommend = response.data.list
       console.log(response)
     },
+
     imgLoad() {
       this.$refs.detailScroll.refresh()
     }
@@ -78,6 +94,8 @@ export default {
     // 请求对应iid商品的相关所有数据
     this._getDetail()
     
+    // 请求详情页[推荐部分]数据
+    this._getRecommend()
   }
 }
 </script>

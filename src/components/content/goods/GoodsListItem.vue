@@ -1,6 +1,6 @@
 <template>
   <div class="goods-item" @click="itemClick">
-    <img :src="goodsItem.show.img" @load="imgLoad"/>
+    <img :src="showImg" @load="imgLoad"/>
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
       <span class="price">{{ goodsItem.price }}</span>
@@ -26,6 +26,12 @@ export default {
     },
     itemClick(event) {
       this.$router.push('/detail/' + this.goodsItem.iid)
+    },
+  },
+  computed: {
+    // 主页和详情页都复用了GoodsList，但是图片的位置有些差异
+    showImg() {
+      return this.goodsItem.image || this.goodsItem.show.img
     }
   }
 }

@@ -8,6 +8,12 @@ export function getDetail(iid) {
     }
   })
 }
+// 详情页[推荐部分]数据
+export function getRecommend() {
+  return request({
+    url: '/recommend'
+  })
+}
 
 
 /*当请求过来的数据结构杂乱无章时，可将用到的数据整合到一个对象里

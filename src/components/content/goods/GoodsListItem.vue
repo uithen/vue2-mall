@@ -23,9 +23,15 @@ export default {
   methods: {
     imgLoad() {
       this.$bus.$emit('imgLoad')
+      // if (this.$route.path.includes('/detail')) {
+      //   this.$bus.$emit('detailImgLoad')
+      // } else if (this.$route.path.includes('/home')) {
+      //   this.$bus.$emit('homeImgLoad')
+      // }
     },
     itemClick(event) {
-      this.$router.push('/detail/' + this.goodsItem.iid)
+      let toGoodsItem = this.goodsItem.iid ? this.goodsItem.iid : this.goodsItem.item_id
+      this.$router.push('/detail/' + toGoodsItem).catch(_ => {})
     },
   },
   computed: {

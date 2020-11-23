@@ -50,6 +50,7 @@ import {
   getHomeGoods
 } from 'network/home.js'
 import { debounce } from 'common/utils.js'
+import { imgItemMixin } from 'common/mixin.js'
 
 export default {
   name: 'Home',
@@ -77,9 +78,10 @@ export default {
       isShowBackTop: false,
       tabControlOffsetTop: 0,
       isTabControlFixed: false,
-      saveY: 0 
+      saveY: 0, 
     }
   },
+  mixins: [imgItemMixin],
   created() {
     this.getHomeMultidata()
     // 默认请求对应分类的第一页商品数据
@@ -87,13 +89,7 @@ export default {
     this.getHomeGoods('new')
     this.getHomeGoods('sell')
   },
-  mounted() {
-    const refresh = debounce(this.$refs.scroll.refresh)
-    this.$bus.$on('imgLoad', () => {
-      // this.$refs.scroll && this.$refs.scroll.refresh()
-      refresh && refresh()
-    })
-  },
+
   computed: {
     showGoods() {
       return this.goods[this.currentType].list
@@ -108,6 +104,8 @@ export default {
   },
   deactivated() {
     this.saveY = this.$refs.scroll.getScrollY()
+    this.$bus.$off('imgLoad', this.imgItemListener)
+    // this.$refs.scroll.refresh()
   },
   methods: {
     backTopClick() {

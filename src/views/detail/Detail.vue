@@ -1,12 +1,12 @@
 <template>
   <div id="detail">
     <detail-nav-bar/>
-    <scroll class="detail-scroll" ref="detailScroll" :pullUpLoad="true" :probeType="3">
+    <scroll class="detail-scroll" ref="scroll" :pullUpLoad="true" :probeType="3">
       <detail-swiper :topImages="topImages"/>
       <detail-base-info :goodsInfo="goodsInfo"/>
       <detail-shop-info :shopInfo="shopInfo"/>
       <detail-goods-info :detailInfo="detailInfo" @imgLoad="imgLoad"/>
-      <!-- <detail-param-info :paramsInfo="paramsInfo"/> -->
+      <detail-param-info :paramsInfo="paramsInfo"/>
       <detail-rate :detail-rate="detailRate"/>
       <goods-list :goods="detailrecommend"/>
     </scroll>
@@ -27,6 +27,8 @@ import DetailParamInfo from './childCpns/DetailParamInfo.vue'
 import DetailRate from './childCpns/DetailRate.vue'
 
 import { getDetail, GoodsInfo, ShopInfo, ParamsInfo, getRecommend } from 'network/detail.js'
+import { debounce } from 'common/utils.js'
+import { imgItemMixin } from 'common/mixin.js'
 export default {
   name: 'Detail',
   components: {
@@ -52,9 +54,10 @@ export default {
       detailInfo: {},
       paramsInfo: {},
       detailRate: {},
-      detailrecommend: {}
+      detailrecommend: {},
     }
   },
+  mixins: [imgItemMixin],
   methods: {
     async _getDetail() {
       const response = await getDetail(this.iid)
@@ -84,7 +87,7 @@ export default {
     },
 
     imgLoad() {
-      this.$refs.detailScroll.refresh()
+      this.$refs.scroll.refresh()
     }
   },
   created() {
@@ -96,6 +99,9 @@ export default {
     
     // 请求详情页[推荐部分]数据
     this._getRecommend()
+  },
+  destroyed() {
+    this.$bus.$off('imgLoad', this.imgItemListener)
   }
 }
 </script>

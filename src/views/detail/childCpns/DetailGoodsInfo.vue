@@ -69,16 +69,6 @@ export default {
     padding: 15px 0;
     font-size: 14px;
   }
-  .info-key {
-  font: 2rem 'Montserrat', sans-serif;
-  letter-spacing: 6px;
-  text-align: center;
-  background: #f2f5f8;
-  background-image: linear-gradient(to bottom, #f4f8fc 33%, #f9fcff 66%, #fff);
-  color: #de5a32b8;
-  text-shadow: -4px 4px 0 #942f3836;
-  margin: 26px 0;
-}
 .info-list img {
     width: 100%;
   }

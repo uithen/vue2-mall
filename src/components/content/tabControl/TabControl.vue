@@ -52,11 +52,10 @@ export default {
   .tab-control span {
     padding: 5px;
   }
-  .active {
+  /* .active {
     color: var(--color-high-text);
     font-weight: bold;
-
-  }
+  } */
   .active span {
     border-bottom: 3px solid var(--color-tint);
   }

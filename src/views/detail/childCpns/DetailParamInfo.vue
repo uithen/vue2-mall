@@ -35,7 +35,7 @@ export default {
 
 <style>
   .param-info {
-    font-size: 16px;
+    font-size: 12px;
     border-bottom: 5px solid #f2f5f8;
   }
   .param-info table {

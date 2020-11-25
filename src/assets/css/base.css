@@ -75,3 +75,8 @@ a {
   text-shadow: -4px 4px 0 #942f3836;
   margin: 11px 0;
 }
+
+.active {
+  color: var(--color-high-text);
+  font-weight: bold;
+}

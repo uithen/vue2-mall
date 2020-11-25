@@ -3,54 +3,32 @@
     <nav-bar class="home-navbar">
       <template #center>购 物 街</template>
     </nav-bar>
-    <tab-control 
-      :titles="['流行','新款','精选']" 
-      @tabClick="tabClick"
-      ref="tabControl1"
-      class="fixed"
-      v-show="isTabControlFixed"
-      />
-    <scroll 
-      class="scroll" 
-      ref="scroll" 
-      :probeType="3" 
-      @scroll="contentScroll"
-      :pullUpLoad="true"
-      @pullingUp="loadMore"
-    >
+    <tab-control :titles="['流行','新款','精选']" @tabClick="tabClick" ref="tabControl1" class="fixed" v-show="isTabControlFixed"/>
+    <scroll class="scroll" ref="scroll" :probeType="3" @scroll="contentScroll" :pullUpLoad="true" @pullingUp="loadMore">
       <home-swiper :banners="banners" @swiperImgLoad="swiperImgLoad"/>
       <recommend-view :recommends="recommends"/>
       <feature-view/>
-      <tab-control 
-      :titles="['流行','新款','精选']" 
-      @tabClick="tabClick"
-      ref="tabControl2"
-      />
+      <tab-control :titles="['流行','新款','精选']" @tabClick="tabClick" ref="tabControl2"/>
       <goods-list :goods="showGoods"/>
     </scroll>
-    <back-top 
-    @click.native="backTopClick"
-    v-show="isShowBackTop"
-    />
+    <back-top @click.native="backTopClick" v-show="isShowBackTop"/>
   </div>
 </template>
 
 <script>
 import NavBar from 'components/common/navbar/NavBar.vue'
 import Scroll from 'components/common/scroll/Scroll.vue'
+
 import TabControl from 'components/content/tabControl/TabControl.vue'
 import GoodsList from 'components/content/goods/GoodsList.vue'
-import BackTop from 'components/content/backTop/BackTop.vue'
+
 import HomeSwiper from './childCpns/HomeSwiper.vue'
 import RecommendView from './childCpns/RecommendView.vue'
 import FeatureView from './childCpns/FeatureView.vue'
 
-import {
-  getHomeMultidata,
-  getHomeGoods
-} from 'network/home.js'
+import { getHomeMultidata, getHomeGoods } from 'network/home.js'
 import { debounce } from 'common/utils.js'
-import { imgItemMixin } from 'common/mixin.js'
+import { imgItemMixin, backTopMixin } from 'common/mixin.js'
 
 export default {
   name: 'Home',
@@ -59,7 +37,6 @@ export default {
     TabControl,
     GoodsList,
     Scroll,
-    BackTop,
 
     HomeSwiper,
     RecommendView,
@@ -75,13 +52,13 @@ export default {
         sell: { page: 0, list: [] },
       },
       currentType: 'pop',
-      isShowBackTop: false,
+      // isShowBackTop: false,
       tabControlOffsetTop: 0,
       isTabControlFixed: false,
       saveY: 0, 
     }
   },
-  mixins: [imgItemMixin],
+  mixins: [imgItemMixin, backTopMixin],
   created() {
     this.getHomeMultidata()
     // 默认请求对应分类的第一页商品数据
@@ -108,14 +85,10 @@ export default {
     // this.$refs.scroll.refresh()
   },
   methods: {
-    backTopClick() {
-      // this.$refs.scroll.scroll.scrollTo(0, 0, 300)
-      this.$refs.scroll.scrollTo(0, 0)
-    },
-    contentScroll(position) {
-      this.isShowBackTop = (-position.y) > 1000  
-      this.isTabControlFixed = (-position.y) >= this.tabControlOffsetTop
-      // console.log(position)
+    contentScroll(pos) {
+      // this.isShowBackTop = (-pos.y) > 1000  
+      this.setBackTopStatus(pos)
+      this.isTabControlFixed = (-pos.y) >= this.tabControlOffsetTop
     },
     loadMore() {
       this.getHomeGoods(this.currentType)
@@ -133,10 +106,6 @@ export default {
     this.$refs.tabControl1.currentIndex = i 
     this.$refs.tabControl2.currentIndex = i 
    },
-
-    /**
-     * 网络请求相关
-    */
     // 请求banner & recommend 数据
     async getHomeMultidata() {
       const response = await getHomeMultidata()

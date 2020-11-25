@@ -59,7 +59,7 @@
       },
       refresh() {
         this.scroll && this.scroll.refresh()
-        // console.log(11)
+        console.log('debounce count')
       },
       finishPullUp() {
         this.scroll && this.scroll.finishPullUp()

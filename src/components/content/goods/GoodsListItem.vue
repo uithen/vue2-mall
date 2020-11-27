@@ -30,7 +30,7 @@ export default {
       // }
     },
     itemClick(event) {
-      let toGoodsItem = this.goodsItem.iid ? this.goodsItem.iid : this.goodsItem.item_id
+      const toGoodsItem = this.goodsItem.iid ? this.goodsItem.iid : this.goodsItem.item_id
       this.$router.push('/detail/' + toGoodsItem).catch(_ => {})
     },
   },

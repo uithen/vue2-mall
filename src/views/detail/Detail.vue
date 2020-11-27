@@ -10,7 +10,7 @@
       <detail-rate :detail-rate="detailRate" ref="rate"/>
       <goods-list :goods="detailRecommend" ref="recommend"/>
     </scroll>
-    <detail-bot-bar/>
+    <detail-bot-bar @addCart="addCart"/>
     <back-top @click.native="backTopClick" v-show="isShowBackTop"/>
   </div>
 </template>
@@ -134,7 +134,18 @@ export default {
       }
       */
     },
-
+    addCart() {
+      // 1.保存购物车界面需要用到的当前商品信息
+      const cartItem = {
+        iid: this.iid,
+        img: this.topImages[0],
+        desc: this.goodsInfo.desc,
+        title: this.goodsInfo.title,
+        price: this.goodsInfo.realPrice,
+      }
+      // 2. 触发添加购物车的dispatch
+      this.$store.dispatch('addCartBy', cartItem)
+    }
   },
   created() {
     // 保存跳转到详情页携带的数据iid

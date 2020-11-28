@@ -1,10 +1,12 @@
 export default {
-  // 点击加入购物车时,存在相同商品则其数量+1
-  cartItemCount(state, cartItem) {
+  goodsCount(state, cartItem) {
     cartItem.count++
+    console.log('购物车该商品数量加1')
   },
-  // 不存在则添加新商品
-  addCart({moduleCart}, cartItem) {
+  addNewGoods({moduleCart}, cartItem) {
+    cartItem.count = 1
+    cartItem.checked = true
     moduleCart.cartList.push(cartItem)
+    console.log('购物车成功添加新商品')
   }
 }

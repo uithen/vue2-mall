@@ -1,7 +1,7 @@
 <template>
   <div id="detail">
     <detail-nav-bar @navClick="navClick" ref="nav"/>
-    <scroll class="detail-scroll" ref="scroll" :pull-up-load="true" :probe-type="3" @scroll="contentScroll">
+    <scroll-area class="detail-scroll" ref="scroll" :pull-up-load="true" :probe-type="3" @scroll="contentScroll">
       <detail-swiper :top-images="topImages"/>
       <detail-base-info :goods-info="goodsInfo"/>
       <detail-shop-info :shop-info="shopInfo"/>
@@ -9,7 +9,7 @@
       <detail-param-info :params-info="paramsInfo" ref="param"/>
       <detail-rate :detail-rate="detailRate" ref="rate"/>
       <goods-list :goods="detailRecommend" ref="recommend"/>
-    </scroll>
+    </scroll-area>
     <detail-bot-bar @addCart="addCart"/>
     <back-top @click.native="backTopClick" v-show="isShowBackTop"/>
   </div>
@@ -18,7 +18,7 @@
 <script>
 import DetailNavBar from './childCpns/DetailNavBar.vue'
 
-import Scroll from 'components/common/scroll/Scroll.vue'
+import ScrollArea from 'components/common/scroll/ScrollArea.vue'
 import GoodsList from 'components/content/goods/GoodsList.vue'
 
 import DetailSwiper from './childCpns/DetailSwiper.vue'
@@ -38,7 +38,7 @@ export default {
   components: {
     DetailNavBar,
 
-    Scroll,
+    ScrollArea,
     GoodsList,
 
     DetailSwiper,
@@ -143,7 +143,7 @@ export default {
         title: this.goodsInfo.title,
         price: this.goodsInfo.realPrice,
       }
-      // 2. 触发添加购物车的dispatch
+      // 2. 添加当前商品至购物车
       this.$store.dispatch('addCartBy', cartItem)
     }
   },

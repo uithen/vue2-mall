@@ -28,8 +28,8 @@ export default {
     text-align: center;
     z-index: 999;
   }
-  .left,
-  .right {
+  .nav-bar .left,
+  .nav-bar .right {
     width: 60px;
   }
   .center {

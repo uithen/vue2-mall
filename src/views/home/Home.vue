@@ -4,20 +4,20 @@
       <template #center>购 物 街</template>
     </nav-bar>
     <tab-control :titles="['流行','新款','精选']" @tabClick="tabClick" ref="tabControl1" class="fixed" v-show="isTabControlFixed"/>
-    <scroll class="scroll" ref="scroll" :probeType="3" @scroll="contentScroll" :pullUpLoad="true" @pullingUp="loadMore">
+    <scroll-area class="scroll" ref="scroll" :probeType="3" @scroll="contentScroll" :pullUpLoad="true" @pullingUp="loadMore">
       <home-swiper :banners="banners" @swiperImgLoad="swiperImgLoad"/>
       <recommend-view :recommends="recommends"/>
       <feature-view/>
       <tab-control :titles="['流行','新款','精选']" @tabClick="tabClick" ref="tabControl2"/>
       <goods-list :goods="showGoods"/>
-    </scroll>
+    </scroll-area>
     <back-top @click.native="backTopClick" v-show="isShowBackTop"/>
   </div>
 </template>
 
 <script>
 import NavBar from 'components/common/navbar/NavBar.vue'
-import Scroll from 'components/common/scroll/Scroll.vue'
+import ScrollArea from 'components/common/scroll/ScrollArea.vue'
 
 import TabControl from 'components/content/tabControl/TabControl.vue'
 import GoodsList from 'components/content/goods/GoodsList.vue'
@@ -36,7 +36,7 @@ export default {
     NavBar,
     TabControl,
     GoodsList,
-    Scroll,
+    ScrollArea,
 
     HomeSwiper,
     RecommendView,

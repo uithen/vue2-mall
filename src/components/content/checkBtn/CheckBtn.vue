@@ -20,6 +20,10 @@ export default {
     border: 1px solid #ccc;
     border-radius: 50%;
   }
+  .check-btn img {
+    width: 18px;
+    height: 18px;
+  }
   .check {
     background-color: var(--color-tint);
     border-color: #fff;

@@ -4,6 +4,7 @@
     <scroll-area class="scroll-area" ref="scroll">
       <cart-list/>
     </scroll-area>
+    <cart-bot-bar/>
   </div>
 </template>
 
@@ -15,11 +16,13 @@ import ScrollArea from 'components/common/scroll/ScrollArea.vue'
 
 import CartNavBar from './childCpns/CartNavBar'
 import CartList from './childCpns/CartList'
+import CartBotBar from './childCpns/CartBotBar'
 export default {
   name: 'Cart',
   components: {
     CartNavBar,
     CartList,
+    CartBotBar,
     ScrollArea
   },
   activated() {
@@ -34,7 +37,7 @@ export default {
     height: 100vh;
   }
   .scroll-area {
-    height: calc(100% - 44px - 49px);
+    height: calc(100% - 44px - 49px - 26px);
     overflow: hidden;
   }
 </style>

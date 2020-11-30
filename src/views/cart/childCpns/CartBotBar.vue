@@ -1,7 +1,7 @@
 <template>
   <div class="cart-botbar">
     <div class="check-all">
-      <check-btn/>
+      <check-btn @click.native="allClick" :is-checked="isCheckedAll"/>
       <span>全选</span>
     </div>
     <div class="totalPrice"> 合计: <strong>{{ totalPrice }}</strong></div>
@@ -18,8 +18,11 @@ export default {
   components: {
     CheckBtn
   },
+  data: () => ({
+    // flag: false
+  }),
   computed: {
-    ...mapGetters(['cartList']),
+    ...mapGetters(['cartList', 'cartListLen']),
     totalPrice() {
       return '¥' + this.cartList.filter(item => item.checked)
               .reduce((prev, item) => item.price * item.count + prev, 0)
@@ -27,8 +30,20 @@ export default {
     },
     checkLen() {
       return this.cartList.filter(item => item.checked).length
+    },
+    isCheckedAll() {
+      return this.cartListLen && !this.cartList.find(item => !item.checked)
     }
   },
+  methods: {
+    allClick() {
+      if (this.isCheckedAll) {
+        this.cartList.forEach(item => item.checked = false)
+      } else {
+        this.cartList.forEach(item => item.checked = true)
+      }
+    }
+  }
 }
 </script>
 

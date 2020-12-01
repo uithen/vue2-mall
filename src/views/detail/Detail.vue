@@ -33,6 +33,8 @@ import { getDetail, GoodsInfo, ShopInfo, ParamsInfo, getRecommend } from 'networ
 import { imgItemMixin, backTopMixin } from 'common/mixin.js'
 import { debounce } from 'common/utils.js'
 
+import { mapActions } from 'vuex'
+
 export default {
   name: 'Detail',
   components: {
@@ -47,7 +49,7 @@ export default {
     DetailGoodsInfo,
     DetailParamInfo,
     DetailRate,
-    DetailBotBar
+    DetailBotBar,
 
   },
   data() {
@@ -62,7 +64,7 @@ export default {
       detailRecommend: {},
       navY: [],
       setNavY: null,
-      crtIndex: 0
+      crtIndex: 0,
     }
   },
   mixins: [imgItemMixin, backTopMixin],
@@ -144,8 +146,12 @@ export default {
         price: this.goodsInfo.realPrice,
       }
       // 2. 添加当前商品至购物车
-      this.$store.dispatch('addCartBy', cartItem)
-    }
+      // this.$store.dispatch('addCartBy', cartItem).then(res => console.log(res))
+      this.addCartBy(cartItem).then(res => {
+        this.$toast.show(res)
+      })
+    },
+    ...mapActions(['addCartBy'])
   },
   created() {
     // 保存跳转到详情页携带的数据iid

@@ -5,7 +5,7 @@
       <span>全选</span>
     </div>
     <div class="totalPrice"> 合计: <strong>{{ totalPrice }}</strong></div>
-    <div class="checkout"> 去结算({{ checkLen }})</div>
+    <div class="checkout" @click="checkoutClick"> 去结算({{ checkLen }})</div>
   </div>
 </template>
 
@@ -32,7 +32,7 @@ export default {
       return this.cartList.filter(item => item.checked).length
     },
     isCheckedAll() {
-      return this.cartListLen && !this.cartList.find(item => !item.checked)
+      return !!this.cartListLen && !(this.cartList.find(item => !item.checked))
     }
   },
   methods: {
@@ -41,6 +41,13 @@ export default {
         this.cartList.forEach(item => item.checked = false)
       } else {
         this.cartList.forEach(item => item.checked = true)
+      }
+    },
+    checkoutClick() {
+      if (!this.isCheckedAll) {
+        this.$toast.show('请至少选择一件商品')
+      } else {
+        this.$toast.show('支付功能暂未开通')
       }
     }
   }

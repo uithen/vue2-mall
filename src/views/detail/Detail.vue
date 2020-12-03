@@ -179,6 +179,11 @@ export default {
     /* height: calc(100vh - 49px); */
   }
   .detail-scroll {
-    height: calc(100% - 44px - 49px);
+    /* height: calc(100% - 44px - 49px); */
+    position: absolute;
+    top: 44px;
+    right: 0;
+    bottom: 49px;
+    left: 0;
   }
 </style>

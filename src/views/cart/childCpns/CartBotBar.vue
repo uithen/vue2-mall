@@ -57,11 +57,14 @@ export default {
 <style>
   .cart-botbar {
     display: flex;
+    position: fixed;
+    right: 0;
+    bottom: 49px;
+    left: 0;
     align-items: center;
     height: 26px;
-    /* line-height: 26; */
     font-size: 14px;
-    /* background-color: #ccc; */
+    border-top: 1px solid #ccc;
   }
   .check-all {
     display: flex;

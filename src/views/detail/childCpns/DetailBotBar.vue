@@ -16,7 +16,7 @@
     </div>
     <div class="bar-item bar-right">
       <div class="addcart" @click="addCart">加入购物车</div>
-      <div class="buy">购买</div>
+      <div class="buy" @click="toCart">购买</div>
     </div>
   </div>
 </template>
@@ -26,6 +26,9 @@ export default {
   methods: {
     addCart() {
       this.$emit('addCart')
+    },
+    toCart() {
+      this.$router.replace('/cart/')
     }
   }
 }
@@ -33,8 +36,12 @@ export default {
 
 <style>
 .detail-botbar {
-  position: relative;
+  position: fixed;
+  width: 100%;
   height: 49px;
+  right: 0;
+  bottom: 0;
+  left: 0;
   display: flex;
   text-align: center;
   background-color: #fff;

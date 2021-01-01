@@ -28,6 +28,13 @@
       pullUpLoad: {
         type: Boolean,
         default: false 
+      },
+      // watch分类页数据变更重新refresh,以获取正确高度
+      data: {
+        type: Array,
+        default() {
+          return []
+        }
       }
     },
     mounted() {
@@ -66,6 +73,11 @@
       },
       getScrollY() {
         return this.scroll.y 
+      }
+    },
+    watch: {
+      data() {
+        setTimeout(this.refresh, 10)
       }
     }
   }

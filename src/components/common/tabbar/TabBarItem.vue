@@ -59,7 +59,7 @@ export default {
     margin-top: 3px;
     vertical-align: middle;
   }
-  .item-text {
+  #tab-bar-item .item-text {
     font-size: 14px;
     font-weight: 600;
     margin-top: 3px;

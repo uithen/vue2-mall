@@ -4,6 +4,7 @@ export default {
     return new Promise((resolve, reject) => {
       // 判断购物车中是否存在相同商品
       let crtCart = state.moduleCart.cartList.find(item => item.iid === cartItem.iid)
+      console.log(crtCart)
       // 存在相同商品则其数量+1,不存在则添加新商品
       if (crtCart) { 
         commit('goodsCount', crtCart)

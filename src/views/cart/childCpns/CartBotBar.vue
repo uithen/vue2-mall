@@ -44,7 +44,7 @@ export default {
       }
     },
     checkoutClick() {
-      if (!this.isCheckedAll) {
+      if (!this.checkLen) {
         this.$toast.show('请至少选择一件商品')
       } else {
         this.$toast.show('支付功能暂未开通')

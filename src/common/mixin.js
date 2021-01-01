@@ -38,3 +38,19 @@ export const backTopMixin = {
     } 
   }
 }
+
+// TabControl
+export const tabControlMixin = {
+  data() {
+    return {
+      currentType: 'pop'
+    }
+  },
+  methods: {
+    tabClick(i) {
+      this.currentType = i === 1
+       ? 'new' : i === 2
+       ? 'sell' : 'pop'
+    },
+  }
+}

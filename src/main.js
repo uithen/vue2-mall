@@ -11,6 +11,7 @@ Vue.use(VueLazyload, {
   preLoad: 1.3,
   loading: require('./assets/img/common/placeholder.gif'),
 })
+
 Vue.config.productionTip = false
 
 new Vue({

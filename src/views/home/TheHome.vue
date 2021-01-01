@@ -6,8 +6,8 @@
     <tab-control :titles="['流行','新款','精选']" @tabClick="tabClick" ref="tabControl1" class="fixed" v-show="isTabControlFixed"/>
     <scroll-area class="scroll" ref="scroll" :probeType="3" @scroll="contentScroll" :pullUpLoad="true" @pullingUp="loadMore">
       <home-swiper :banners="banners" @swiperImgLoad="swiperImgLoad"/>
-      <recommend-view :recommends="recommends"/>
-      <feature-view/>
+      <home-recommend-view :recommends="recommends"/>
+      <home-feature-view/>
       <tab-control :titles="['流行','新款','精选']" @tabClick="tabClick" ref="tabControl2"/>
       <goods-list :goods="showGoods"/>
     </scroll-area>
@@ -16,15 +16,15 @@
 </template>
 
 <script>
-import NavBar from 'components/common/navbar/NavBar.vue'
-import ScrollArea from 'components/common/scroll/ScrollArea.vue'
+import NavBar from 'components/common/navBar/NavBar'
+import ScrollArea from 'components/common/scroll/ScrollArea'
 
-import TabControl from 'components/content/tabControl/TabControl.vue'
-import GoodsList from 'components/content/goods/GoodsList.vue'
+import TabControl from 'components/content/tabControl/TabControl'
+import GoodsList from 'components/content/goods/GoodsList'
 
-import HomeSwiper from './childCpns/HomeSwiper.vue'
-import RecommendView from './childCpns/RecommendView.vue'
-import FeatureView from './childCpns/FeatureView.vue'
+import HomeSwiper from './childCpns/HomeSwiper'
+import HomeRecommendView from './childCpns/HomeRecommendView'
+import HomeFeatureView from './childCpns/HomeFeatureView'
 
 import { getHomeMultidata, getHomeGoods } from 'network/home.js'
 import { debounce } from 'common/utils.js'
@@ -39,8 +39,8 @@ export default {
     ScrollArea,
 
     HomeSwiper,
-    RecommendView,
-    FeatureView,
+    HomeRecommendView,
+    HomeFeatureView,
   },
   data() {
     return {
@@ -60,11 +60,11 @@ export default {
   },
   mixins: [imgItemMixin, backTopMixin],
   created() {
-    this.getHomeMultidata()
+    this._getHomeMultidata()
     // 默认请求对应分类的第一页商品数据
-    this.getHomeGoods('pop')
-    this.getHomeGoods('new')
-    this.getHomeGoods('sell')
+    this._getHomeGoods('pop')
+    this._getHomeGoods('new')
+    this._getHomeGoods('sell')
   },
 
   computed: {
@@ -91,14 +91,11 @@ export default {
       this.isTabControlFixed = (-pos.y) >= this.tabControlOffsetTop
     },
     loadMore() {
-      this.getHomeGoods(this.currentType)
+      this._getHomeGoods(this.currentType)
     },
     swiperImgLoad() {
       this.tabControlOffsetTop = this.$refs.tabControl2.$el.offsetTop
     },
-    /**
-     * 事件监听相关
-    */
    tabClick(i) {
      this.currentType = i === 1
       ? 'new' : i === 2
@@ -107,13 +104,13 @@ export default {
     this.$refs.tabControl2.currentIndex = i 
    },
     // 请求banner & recommend 数据
-    async getHomeMultidata() {
+    async _getHomeMultidata() {
       const response = await getHomeMultidata()
       this.banners = response.data.banner.list
       this.recommends = response.data.recommend.list
     },
       // 请求商品列表数据
-    async getHomeGoods(type) {
+    async _getHomeGoods(type) {
       const page = this.goods[type].page + 1
       const response = await getHomeGoods(type, page)
       this.goods[type].list.push(...response.data.list)

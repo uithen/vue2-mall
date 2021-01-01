@@ -14,7 +14,7 @@ export default {
   name: 'GoodsItem',
   props: {
     goodsItem: {
-      Object,
+      type: Object,
       default() {
         return {}
       }
@@ -35,9 +35,9 @@ export default {
     },
   },
   computed: {
-    // 主页和详情页都复用了GoodsList，但是图片的位置有些差异
+    // 主页、详情页和分类页都复用了GoodsList，但存放图片的位置有些差异
     showImg() {
-      return this.goodsItem.image || this.goodsItem.show.img
+      return this.goodsItem.img || this.goodsItem.image || this.goodsItem.show.img
     }
   }
 }

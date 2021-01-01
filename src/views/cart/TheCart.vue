@@ -12,7 +12,7 @@
 
 import { mapState } from 'vuex'
 
-import ScrollArea from 'components/common/scroll/ScrollArea.vue'
+import ScrollArea from 'components/common/scroll/ScrollArea'
 
 import CartNavBar from './childCpns/CartNavBar'
 import CartList from './childCpns/CartList'

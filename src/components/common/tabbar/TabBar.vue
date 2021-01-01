@@ -27,6 +27,5 @@ export default {
     height: 49px;
     border-top: 1px solid #eee;
     box-shadow: 0px -1px 1px rgba(150,150,150,.08);
-
   }
 </style>

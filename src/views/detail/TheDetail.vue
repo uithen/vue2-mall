@@ -16,18 +16,18 @@
 </template>
 
 <script>
-import DetailNavBar from './childCpns/DetailNavBar.vue'
+import DetailNavBar from './childCpns/DetailNavBar'
 
-import ScrollArea from 'components/common/scroll/ScrollArea.vue'
-import GoodsList from 'components/content/goods/GoodsList.vue'
+import ScrollArea from 'components/common/scroll/ScrollArea'
+import GoodsList from 'components/content/goods/GoodsList'
 
-import DetailSwiper from './childCpns/DetailSwiper.vue'
-import DetailBaseInfo from './childCpns/DetailBaseInfo.vue'
-import DetailShopInfo from './childCpns/DetailShopInfo.vue'
-import DetailGoodsInfo from './childCpns/DetailGoodsInfo.vue'
-import DetailParamInfo from './childCpns/DetailParamInfo.vue'
-import DetailRate from './childCpns/DetailRate.vue'
-import DetailBotBar from './childCpns/DetailBotBar.vue'
+import DetailSwiper from './childCpns/DetailSwiper'
+import DetailBaseInfo from './childCpns/DetailBaseInfo'
+import DetailShopInfo from './childCpns/DetailShopInfo'
+import DetailGoodsInfo from './childCpns/DetailGoodsInfo'
+import DetailParamInfo from './childCpns/DetailParamInfo'
+import DetailRate from './childCpns/DetailRate'
+import DetailBotBar from './childCpns/DetailBotBar'
 
 import { getDetail, GoodsInfo, ShopInfo, ParamsInfo, getRecommend } from 'network/detail.js'
 import { imgItemMixin, backTopMixin } from 'common/mixin.js'
@@ -36,7 +36,7 @@ import { debounce } from 'common/utils.js'
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'Detail',
+  name: 'TheDetail',
   components: {
     DetailNavBar,
 
@@ -145,6 +145,7 @@ export default {
         title: this.goodsInfo.title,
         price: this.goodsInfo.realPrice,
       }
+      console.log(this.iid)
       // 2. 添加当前商品至购物车
       // this.$store.dispatch('addCartBy', cartItem).then(res => console.log(res))
       this.addCartBy(cartItem).then(res => {
